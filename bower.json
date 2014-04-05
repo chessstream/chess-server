@@ -1,0 +1,9 @@
+{
+	"name": "chess-server",
+	"version": "0.0.1",
+	"description": "Stream chess games",
+	"dependencies": {
+		"jquery": "2.1.0",
+		"chessboard.js": "0.3.2"
+	}
+}

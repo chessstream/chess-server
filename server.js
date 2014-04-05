@@ -32,7 +32,7 @@ if ('development' == app.get('env')) {
 // Visited from web
 app.get('/', webRoutes.index);
 app.get('/id', mobileRoutes.getId);
-app.post('/game/:gameId', cvRoutes.analyze);
+app.post('/update', cvRoutes.analyze);
 app.get('/:gameId', webRoutes.game);
 
 var server = http.createServer(app).listen(app.get('port'), function(){
