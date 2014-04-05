@@ -1,10 +1,15 @@
+// Server
 var express = require('express')
-  , routes = require('./routes')
   , http = require('http')
   , path = require('path')
-  , chessCV = require('./lib/chess-cv/')
-  , chessWeb = require('./lib/chess-web.js')
-  , chessMobile = require('./lib/chess-mobile.js');
+
+// Socket.io
+var chessWeb = require('./lib/chess-web')
+
+// Routes
+var webRoutes = require('./routes/web')
+  , mobileRoutes = require('./routes/mobile')
+  , cvRoutes = require('./routes/cv');
 
 var app = express();
 
@@ -24,12 +29,11 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-// Web
-app.get('/', routes.index);
-app.get('/game/:gameId', routes.game);
-
-// Mobile
-app.get('/id', chessMobile.genId);
+// Visited from web
+app.get('/', webRoutes.index);
+app.get('/id', mobileRoutes.getId);
+app.post('/game/:gameId', cvRoutes.analyze);
+app.get('/:gameId', webRoutes.game);
 
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
