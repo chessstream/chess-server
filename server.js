@@ -1,7 +1,9 @@
 var express = require('express')
   , routes = require('./routes')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , chessWeb = require('./lib/chess-web.js')
+  , chessMobile = require('./lib/chess-mobile.js');
 
 var app = express();
 
@@ -21,8 +23,15 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+// Web
 app.get('/', routes.index);
+app.get('/game/:gameId', routes.game);
 
-http.createServer(app).listen(app.get('port'), function(){
+// Mobile
+app.get('/id', chessMobile.genId);
+
+var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+chessWeb.listen(server);
