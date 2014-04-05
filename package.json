@@ -1,0 +1,14 @@
+{
+	"name": "chess-server",
+	"version": "0.0.1",
+	"description": "Stream chess games",
+	"dependencies": {
+		"socket.io": "~0.9.16",
+		"express": "~3.5.1",
+		"jade": "*"
+	},
+	"repository" : {
+		"type": "git",
+		"url": "http://github.com/chessstream/chess-server.git" 
+	}
+}
