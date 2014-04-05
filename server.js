@@ -2,6 +2,7 @@ var express = require('express')
   , routes = require('./routes')
   , http = require('http')
   , path = require('path')
+  , chessCV = require('./lib/chess-cv/')
   , chessWeb = require('./lib/chess-web.js')
   , chessMobile = require('./lib/chess-mobile.js');
 
