@@ -137,7 +137,7 @@ def find_intersection(line1, line2, sobel_img):
     return (x,y)
 
 
-def find_squares(horizontal_lines, vertical_lines, orig_img, sobel_img):
+def find_squares(horizontal_lines, vertical_lines, orig_img, sobel_img, board_state):
     hori_ind = 1
     vert_ind = 1
     squares = np.empty(shape=(8,8), dtype=object)
