@@ -170,19 +170,20 @@ def find_squares(horizontal_lines, vertical_lines, square_length,orig_img, sobel
 
         valid_horizontal_diff = valid_diff(top_left[0], bottom_right[0], square_length)
         valid_vertical_diff = valid_diff(top_left[1], bottom_right[1], square_length)
-        print('horizontal: ' + str(valid_horizontal_diff))
+        if valid_horizontal_diff != 0:
+            print('horizontal: ' + str(valid_horizontal_diff))
         if valid_horizontal_diff < 0: # too small
             right_line_ind += 1
         elif valid_horizontal_diff > 0: # too big
             left_line_ind += 1
         
-        print('vertical: ' + str(valid_vertical_diff))
+        if valid_vertical_diff != 0:
+            print('vertical: ' + str(valid_vertical_diff))
         if valid_vertical_diff < 0: # too small
             bottom_line_ind += 1
         elif valid_vertical_diff > 0:
             top_line_ind += 1
 
-        print valid_square(top_left, bottom_right, square_length)
         if valid_square(top_left, bottom_right, square_length):
             # crop squares
             orig_square = orig_img[top_left[1]:bottom_right[1], top_left[0]:bottom_right[0]]
@@ -201,8 +202,8 @@ def find_squares(horizontal_lines, vertical_lines, square_length,orig_img, sobel
     return squares
 
 def valid_square(top_left, bottom_right, square_length):
-    return (valid_diff(top_left[0], bottom_right[0], square_length) 
-            and valid_diff(top_left[1], bottom_right[1], square_length))
+    return (valid_diff(top_left[0], bottom_right[0], square_length) == 0 
+            and valid_diff(top_left[1], bottom_right[1], square_length) == 0)
 
 def valid_diff(coord1, coord2, square_length):
     """
