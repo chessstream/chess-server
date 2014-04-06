@@ -39,10 +39,10 @@ def crop_img(orig_img, sobel_img):
        if y < y_min:
            y_min = y
     
-    x_start = x_min + 10
-    x_end = x_max - 10
-    y_start = y_min + 10
-    y_end = y_max + 10
+    x_start = x_min + 50
+    x_end = x_max - 50
+    y_start = y_min + 50
+    y_end = y_max + 50
     new_original = orig_img[y_start:y_end, x_start:x_end]
     new_sobel = sobel_img[y_start:y_end, x_start:x_end]
     return new_original, new_sobel
