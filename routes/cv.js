@@ -13,7 +13,10 @@ exports.analyze = function(req, res){
     res.end('error');
   }
   console.log(req.files.img.path);
-  fs.rename(req.files.img.path, path.join(__dirname, 'uploads/' + fileCounter + '.jpeg'));
+  fs.rename(req.files.img.path, path.join(__dirname, 'uploads/' + fileCounter + '.jpeg'), function(err){
+    if (err) throw err;
+    console.log('renamed complete');
+  });
   var fen = chessCV.analyze(id, img);
   chessWeb.updateGame(id, fen);
   res.end('success');
