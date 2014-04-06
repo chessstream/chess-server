@@ -1,4 +1,5 @@
-fs = require('fs');
+var fs = require('fs'),
+var path = require('path');
 
 var chessCV = require('./../lib/chess-cv/')
 var chessWeb = require('./../lib/chess-web');
