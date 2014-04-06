@@ -174,7 +174,7 @@ def find_everything(orig_img_path, sobel_img_path, board_state=None):
     orig_img_in = cv2.imread(orig_img_path)
     sobel_img_in = cv2.imread(sobel_img_path)
     orig_img, sobel_img = crop_img(orig_img_in, sobel_img_in)
-    horizontal_lines, vertical_lines = hough_lines(sobel_img)
+    horizontal_lines, vertical_lines = hough_lines(orig_img)
     print(vertical_lines)
     
     # more lines than necessary, so merge
