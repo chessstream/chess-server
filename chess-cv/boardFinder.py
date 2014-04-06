@@ -186,8 +186,8 @@ class boardFinder(object):
         # Threshold the HSV value
         # Green is between ~70 and ~120, and our tape is between saturation 85 and 255.
         self.debugimg = cv2.inRange(self.hsv,
-                                    np.array([70, 85, 0], np.uint8),
-                                    np.array([120, 255, 255], np.uint8))
+                                    np.array([300, 85, 0], np.uint8),
+                                    np.array([358, 255, 255], np.uint8))
         contours, hierarchy = cv2.findContours(self.debugimg,
                                                cv2.RETR_TREE,
                                                cv2.CHAIN_APPROX_SIMPLE)
