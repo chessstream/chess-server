@@ -140,40 +140,85 @@ def find_intersection(line1, line2, sobel_img):
 
 def find_squares(horizontal_lines, vertical_lines, square_length,orig_img, sobel_img, board_state):
     squares = np.empty(shape=(8,8), dtype=object)
+    top_line_ind = 0
+    bottom_line_ind = 1
+    left_line_ind = 0
+    right_line_ind = 1
+    # current position on board
+    x = 0
+    y = 0
  
-    print len(horizontal_lines)
- 
-    for hori_ind in range(1, min(len(horizontal_lines) + 1, 9)):
-        for vert_ind in range(1, min(len(vertical_lines) + 1, 9)):
-            top_line = horizontal_lines[hori_ind - 1]
-            bottom_line = horizontal_lines[hori_ind]
-            left_line = vertical_lines[vert_ind - 1]
-            right_line = vertical_lines[vert_ind]
+    while bottom_line_ind < len(horizontal_lines):
+        print(left_line_ind, right_line_ind, top_line_ind, bottom_line_ind)
+        # when at right end of board
+        if right_line_ind > len(vertical_lines):
+            left_line_ind = 0
+            right_line_ind = 1
+            top_line_ind += 1
+            bottom_line_ind += 1
 
-            # corners of square
-            top_left = find_intersection(top_line, left_line, sobel_img)
-            bottom_right = find_intersection(bottom_line, right_line, sobel_img)
+        top_line = horizontal_lines[top_line_ind]
+        bottom_line = horizontal_lines[bottom_line_ind]
+        left_line = vertical_lines[left_line_ind]
+        right_line = vertical_lines[right_line_ind]
 
+        # corners of square
+        top_left = find_intersection(top_line, left_line, sobel_img)
+        top_right = find_intersection(top_line, right_line, sobel_img)
+        bottom_left = find_intersection(bottom_line, left_line, sobel_img)
+        bottom_right = find_intersection(bottom_line, right_line, sobel_img)
+
+        valid_horizontal_diff = valid_diff(top_left[0], bottom_right[0], square_length)
+        valid_vertical_diff = valid_diff(top_left[1], bottom_right[1], square_length)
+        if valid_horizontal_diff != 0:
+            print('horizontal: ' + str(valid_horizontal_diff))
+        if valid_horizontal_diff < 0: # too small
+            right_line_ind += 1
+        elif valid_horizontal_diff > 0: # too big
+            left_line_ind += 1
+        
+        if valid_vertical_diff != 0:
+            print('vertical: ' + str(valid_vertical_diff))
+        if valid_vertical_diff < 0: # too small
+            bottom_line_ind += 1
+        elif valid_vertical_diff > 0:
+            top_line_ind += 1
+
+        if valid_square(top_left, bottom_right, square_length):
             # crop squares
-            # print hori_ind, vert_ind
-
             orig_square = orig_img[top_left[1]:bottom_right[1], top_left[0]:bottom_right[0]]
             sobel_square = sobel_img[top_left[1]:bottom_right[1], top_left[0]:bottom_right[0]]
-            squares[hori_ind - 1][vert_ind - 1] = Square(sobel_square, orig_img, hori_ind - 1, vert_ind - 1, board_state)
+            squares[x][y] = Square(sobel_square, orig_img, x, y, board_state)
+            cv2.circle(sobel_img, top_left, 3, (255,0,0))
+            cv2.circle(sobel_img, top_right, 3, (255,0,0))
+            cv2.circle(sobel_img, bottom_left, 3, (255,0,0))
+            cv2.circle(sobel_img, bottom_right, 3, (255,0,0))
+            x, y = x + 1, y + 1
+            left_line_ind += 1
+            right_line_ind += 1
 
+    if x != 7 or y != 7:
+        raise Exception('Did not find correct number of squares')
     return squares
 
-def valid_square(top_left, bottom_right):
-    pass
+def valid_square(top_left, bottom_right, square_length):
+    return (valid_diff(top_left[0], bottom_right[0], square_length) == 0 
+            and valid_diff(top_left[1], bottom_right[1], square_length) == 0)
 
-def valid_diff(coord1, coord2, orientation):
+def valid_diff(coord1, coord2, square_length):
     """
-    Returns whether the distance between 
-    two coords is close enough to side length
-    Assumes lines are either horizontal / vertical
+    Returns:
+        0 : if the distance between two coords is close enough to side length
+        1 : if the distance between two coords is too high
+        -1 : if the distance between two coords is too low
     """
-    return diff < square_length + THERSHOLD
-            && diff > square_length - THERSHOLD
+    SQUARE_LENGTH_THERSHOLD = 25
+    diff = abs(coord1 - coord2)
+    if (diff > square_length + SQUARE_LENGTH_THERSHOLD):
+        return 1
+    if (diff < square_length - SQUARE_LENGTH_THERSHOLD):
+        return -1
+    return 0
 
 
 def find_everything(orig_img_path, sobel_img_path, board_state=None):
@@ -196,10 +241,10 @@ def find_everything(orig_img_path, sobel_img_path, board_state=None):
     horizontal_lines = sort_lines(horizontal_lines, 'horizontal')
 
     # add edges to sobel_img
-    for vert_line in vertical_lines:
+    '''for vert_line in vertical_lines:
         cv2.line(sobel_img,vert_line['p1'],vert_line['p2'],(0,0,255),2)
     for hori_line in horizontal_lines:
-        cv2.line(sobel_img,hori_line['p1'],hori_line['p2'],(0,0,255),2)
+        cv2.line(sobel_img,hori_line['p1'],hori_line['p2'],(0,0,255),2)'''
 
     cv2.imwrite('output.jpg', sobel_img)
     return find_squares(horizontal_lines, vertical_lines, AVG_SQUARE_LENGTH, orig_img, sobel_img, board_state)
