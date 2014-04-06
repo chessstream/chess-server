@@ -82,7 +82,7 @@ def hough_lines(img):
             #cv2.line(img,(x1,y1),(x2,y2),(0,0,255),2)
     return (horizontal_lines, vertical_lines)
 
-THETA_DIFF = np.pi/1
+THETA_DIFF = np.pi
 MAGNITUDE_DIFF = 25
 
 def merge_lines(lines):
@@ -174,7 +174,7 @@ def find_everything(orig_img_path, sobel_img_path, board_state=None):
     orig_img_in = cv2.imread(orig_img_path)
     sobel_img_in = cv2.imread(sobel_img_path)
     orig_img, sobel_img = crop_img(orig_img_in, sobel_img_in)
-    horizontal_lines, vertical_lines = hough_lines(orig_img)
+    horizontal_lines, vertical_lines = hough_lines(sobel_img)
     print(vertical_lines)
     
     # more lines than necessary, so merge
