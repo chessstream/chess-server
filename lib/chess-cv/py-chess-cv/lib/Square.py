@@ -79,7 +79,7 @@ class Square():
 	
 	def __repr__(self):
 		string = str((self.x, self.y)) + ": " + str(self.has_piece)
-		if self.has_piece:
+		if self.has_piece and self.boardinfo:
 			string += ", " + str(self.piece_color)
 		return string
 

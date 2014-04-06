@@ -99,6 +99,7 @@ def merge_lines(lines):
                 abs(lines[i]['theta'] - lines[j]['theta']) < THETA_DIFF and 
                 abs(lines[i]['rho'] - lines[j]['rho']) < MAGNITUDE_DIFF):
                 del lines[j]
+                j -= 1
             j+=1
         i+=1
 
@@ -167,7 +168,7 @@ def find_squares(horizontal_lines, vertical_lines, orig_img, sobel_img, board_st
     except IndexError as e:
         pass
 
-    initialize_game(squares)
+    # initialize_game(squares)
     return squares
 
 def find_everything(orig_img_path, sobel_img_path, board_state=None):
@@ -175,7 +176,7 @@ def find_everything(orig_img_path, sobel_img_path, board_state=None):
     sobel_img_in = cv2.imread(sobel_img_path)
     orig_img, sobel_img = crop_img(orig_img_in, sobel_img_in)
     horizontal_lines, vertical_lines = hough_lines(sobel_img)
-    print(vertical_lines)
+    # print(vertical_lines)
     
     # more lines than necessary, so merge
     if (len(vertical_lines) * len(horizontal_lines) > 49):
