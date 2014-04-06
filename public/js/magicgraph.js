@@ -11,7 +11,7 @@ function createPercentages(whiteInit, blackInit){
   white = whiteInit/total;
   black = blackInit/total;
   
-  var svg = d3.select("#percent-win").append("svg");
+  var svg = d3.select(".graphs").append("svg");
 
   svg.append("g")
     .attr("class", "winPercentGraph");

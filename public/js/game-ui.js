@@ -3,6 +3,7 @@ socket.emit('init', {url: document.URL});
 
 $(function(){
   var start = fen; // fen is set in game view
+  createPercentages(1, 1);
   var board = new ChessBoard('board', {
     pieceTheme: '/img/chesspieces/{piece}.svg',
     position: start
@@ -54,15 +55,25 @@ $(function(){
       }
       if (score > 0) {
         $('.analysis-text').append('<p>White will win in ' + score + ' moves.');
+        updatePercentages(1, 0);
+        
       } else {
         $('.analysis-text').append('<p>Black will win in ' + -score + ' moves.');
+        updatePercentages(0, 1);
       }
     } else {
       var score = game.score / 100;
+      if(score < 0){
+        updatePercentages(1, Math.abs(score+1));
+      }else{
+        updatePercentages(Math.abs(score+1), 1);
+      }
+      //Side to move 1 is BLACK
       if (game.sideToMove == 1) {
         score = -score;
       }
       $('.analysis-text').append('<p>' + scoreToNatLang(score) + '</p>');
+      
     }
 
     // Best move
