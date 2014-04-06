@@ -3,13 +3,12 @@ var chessWeb = require('./../lib/chess-web');
 
 exports.analyze = function(req, res){
 	var id = req.body.id;
-	var img = req.files.img;
-	console.log(id);
-	console.log(req.files);
-	if (!id || !img){
+	var origImg = req.files.original;
+	var sobelImg = req.files.sobel;
+	if (!id || !origImg || !sobelImg){
 		res.end('error');
 	}
-	var fen = chessCV.analyze(id, img);
-	chessWeb.updateGame(id, fen);
+	var boardState = chessCV.process_vision(id, origImg, sobelImg);
+	// chessWeb.updateGame(id, bo);
 	res.end('success');
 }
