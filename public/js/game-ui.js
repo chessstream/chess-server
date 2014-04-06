@@ -63,14 +63,15 @@ $(function(){
       }
     } else {
       var score = game.score / 100;
+      
+      //Side to move 1 is BLACK
+      if (game.sideToMove == 1) {
+        score = -score;
+      }
       if(score < 0){
         updatePercentages(1, Math.abs(score+1));
       }else{
         updatePercentages(Math.abs(score+1), 1);
-      }
-      //Side to move 1 is BLACK
-      if (game.sideToMove == 1) {
-        score = -score;
       }
       $('.analysis-text').append('<p>' + scoreToNatLang(score) + '</p>');
       
