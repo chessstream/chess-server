@@ -23,7 +23,6 @@ def crop_img(orig_img, sobel_img):
                 biggest = approx
                 max_area = area
 
-    print biggest
     x_max = 0;
     x_min = 100000;
     y_max = 0
@@ -173,10 +172,8 @@ def find_everything(orig_img_path, sobel_img_path, board_state=None):
     horizontal_lines, vertical_lines = hough_lines(sobel_img)
 
     cv2.imwrite('recentoutput.jpg',sobel_img)
-    # more lines than necessary, so merge
-    print(len(vertical_lines))
-    print(len(horizontal_lines))
     
+    # more lines than necessary, so merge
     if (len(vertical_lines) * len(horizontal_lines) > 49):
         merge_lines(vertical_lines)
         merge_lines(horizontal_lines)
