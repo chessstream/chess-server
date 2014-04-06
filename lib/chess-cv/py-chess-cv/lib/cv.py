@@ -138,7 +138,7 @@ def find_intersection(line1, line2, sobel_img):
     return (x,y)
 
 
-def find_squares(horizontal_lines, vertical_lines, orig_img, sobel_img, board_state):
+def find_squares(horizontal_lines, vertical_lines, square_length,orig_img, sobel_img, board_state):
     squares = np.empty(shape=(8,8), dtype=object)
  
     print len(horizontal_lines)
@@ -165,13 +165,31 @@ def find_squares(horizontal_lines, vertical_lines, orig_img, sobel_img, board_st
     initialize_game(squares)
     return squares
 
+def valid_square(top_left, bottom_right):
+    pass
+
+def valid_diff(coord1, coord2, orientation):
+    """
+    Returns whether the distance between 
+    two coords is close enough to side length
+    Assumes lines are either horizontal / vertical
+    """
+    return diff < square_length + THERSHOLD
+            && diff > square_length - THERSHOLD
+
+
 def find_everything(orig_img_path, sobel_img_path, board_state=None):
     orig_img_in = cv2.imread(orig_img_path)
     sobel_img_in = cv2.imread(sobel_img_path)
     orig_img, sobel_img = crop_img(orig_img_in, sobel_img_in)
+
+    height, width, depth = orig_img.shape
+    NUM_LINES = 9
+    AVG_SQUARE_LENGTH = ((height + width) / 2)/NUM_LINES
+
     horizontal_lines, vertical_lines = hough_lines(sobel_img)
     # print(vertical_lines)
-    
+
     # more lines than necessary, so merge
     if (len(vertical_lines) * len(horizontal_lines) > 49):
         merge_lines(vertical_lines)
@@ -186,5 +204,5 @@ def find_everything(orig_img_path, sobel_img_path, board_state=None):
         cv2.line(sobel_img,hori_line['p1'],hori_line['p2'],(0,0,255),2)
 
     cv2.imwrite('output.jpg', sobel_img)
-    return find_squares(horizontal_lines, vertical_lines, orig_img, sobel_img, board_state)
+    return find_squares(horizontal_lines, vertical_lines, AVG_SQUARE_LENGTH, orig_img, sobel_img, board_state)
 
