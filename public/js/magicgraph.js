@@ -1,8 +1,8 @@
 function createPercentages(whiteInit, blackInit){
 
   //Config
-  whiteColor = "#DD0000";
-  blackColor = "#00DD00";
+  whiteColor = "#DD9999";
+  blackColor = "#99DD99";
   barHeight = "40px";
   duration = 750;
 

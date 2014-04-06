@@ -134,12 +134,12 @@ def find_intersection(line1, line2, sobel_img):
     return (x,y)
 
 def get_squares(horizontal_lines, vertical_lines, orig_img, sobel_img, board_state):
-    squares = np.empty(shape=(7,7), dtype=object)
+    squares = np.empty(shape=(8,8), dtype=object)
     height, width, depth = orig_img.shape
     square_height = height / 8 
     square_width = width / 8
-    for i in range(7):
-        for j in range(7):
+    for i in range(8):
+        for j in range(8):
             orig_square = orig_img[i*square_height:(i+1)*square_height, j*square_width:(j+1)*square_width]
             sobel_square = sobel_img[i*square_height:(i+1)*square_height, j*square_width:(j+1)*square_width]
             squares[i][j] = Square(sobel_square, orig_square, i, j, board_state)
