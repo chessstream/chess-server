@@ -1,4 +1,5 @@
-var chessGames = require('./../lib/chess-games')
+var chessGames = require('./../lib/chess-games'),
+	chessWeb = require('./../lib/chess-web');
 
 // Get id of a game
 exports.create = function(req, res){
@@ -11,6 +12,6 @@ exports.fen = function(req, res) {
 	var fen = req.body.fen;
 	console.log(id);
 	console.log(fen);
-	chessGames.updateGame(id, fen);
+	chessWeb.updateGame(id, fen);
 	res.end('success');
 }
