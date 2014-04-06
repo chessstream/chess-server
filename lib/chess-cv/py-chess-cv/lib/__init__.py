@@ -15,6 +15,6 @@ def process_input(orig, sobel, board_state):
         squares = cv.find_everything(orig, sobel, board_state)
         info = game.update_game(squares, board_state)
         print info
-        json.encode(info)
+        return info
     except:
         pass
