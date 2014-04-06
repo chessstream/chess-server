@@ -7,6 +7,7 @@ def start_game(orig, sobel):
     info = game.initialize_game(squares)
     fen = info['fen']
     output = {fen: fen, game_state: info}
+    print(json.encode(output))
     return json.encode(output)
 
     #GET FEN STRING SOMEHOW
