@@ -4,7 +4,7 @@ socket.emit('init', {url: document.URL});
 $(function(){
   var start = fen; // fen is set in game view
   var board = new ChessBoard('board', {
-    pieceTheme: 'bower_components/chessboard.js/img/chesspieces/wikipedia/{piece}.svg',
+    pieceTheme: '/img/chesspieces/{piece}.svg',
     position: start
   })
 
