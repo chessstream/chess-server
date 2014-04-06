@@ -1,5 +1,6 @@
 import numpy as np
 import json
+import string_utils as su
 
 class Board(object):
 	THRESHOLD = 0.01
@@ -101,6 +102,7 @@ class Board(object):
 										'RNBQKBNR' ]
 		self.info['fen'] = \
 			'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+		self.info['to_move'] = 'W'
 
 
 class Location(object):
@@ -121,6 +123,19 @@ class Location(object):
 def initialize_game(squares):
 	board = Board(squares)
 	return board.info
+
+def update_game(squares, boardinfo):
+	locations = su.board_string_to_location_array(boardinfo['board'])
+	disappeared, appeared, taken = \
+			compare_square_array_to_location_array(squares, locations)
+	update_location_array(locations, squares, disappeared, appeared, taken)
+	board = location_array_to_board_string(locations)
+	to_move = 'W' if boardinfo['to_move'] == 'B' else 'B'
+	fen = board_string_to_fen(board, rotation, to_move)
+	boardinfo['board'] = board
+	boardinfo['to_move'] = to_move
+	boardinfo['fen'] = fen
+	return boardinfo
 
 def main():
 	pass
