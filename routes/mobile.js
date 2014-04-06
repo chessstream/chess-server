@@ -9,6 +9,8 @@ exports.create = function(req, res){
 exports.fen = function(req, res) {
 	var id = req.body.id;
 	var fen = req.body.fen;
+	console.log(id);
+	console.log(fen);
 	chessGames.updateGame(id, fen);
 	res.end('success');
 }
