@@ -47,13 +47,9 @@ def crop_img(orig_img, sobel_img):
     new_sobel = sobel_img[y_start:y_end, x_start:x_end]
     return new_original, new_sobel
 
-
-
-
-
 # only use horizontal/vertical lines
 def valid_line(theta):
-    DIFFERENCE = np.pi/70
+    DIFFERENCE = np.pi/120
     ninety = np.pi/2;
     num = theta / ninety - np.floor(theta / ninety)
     return num * (np.pi/2) < DIFFERENCE
@@ -137,9 +133,22 @@ def find_intersection(line1, line2, sobel_img):
     cv2.circle(sobel_img, (x, y), 3, (255, 0, 0), 2)
     return (x,y)
 
+def get_squares(horizontal_lines, vertical_lines, orig_img, sobel_img, board_state):
+    squares = np.empty(shape=(7,7), dtype=object)
+    height, width, depth = orig_img.shape
+    square_height = height / 8 
+    square_width = width / 8
+    for i in range(7):
+        for j in range(7):
+            orig_square = orig_img[i*square_height:(i+1)*square_height, j*square_width:(j+1)*square_width]
+            sobel_square = sobel_img[i*square_height:(i+1)*square_height, j*square_width:(j+1)*square_width]
+            squares[i][j] = Square(sobel_square, orig_square, i, j, board_state)
+    print(squares)
+    return squares
+
 
 def find_squares(horizontal_lines, vertical_lines, square_length,orig_img, sobel_img, board_state):
-    squares = np.empty(shape=(8,8), dtype=object)
+    squares = np.empty(shape=(7,7), dtype=object)
     top_line_ind = 0
     bottom_line_ind = 1
     left_line_ind = 0
@@ -192,7 +201,7 @@ def find_squares(horizontal_lines, vertical_lines, square_length,orig_img, sobel
             # crop squares
             orig_square = orig_img[top_left[1]:bottom_right[1], top_left[0]:bottom_right[0]]
             sobel_square = sobel_img[top_left[1]:bottom_right[1], top_left[0]:bottom_right[0]]
-            squares[x][y] = Square(sobel_square, orig_img, x, y, board_state)
+            squares[x][y] = Square(sobel_square, orig_square, x, y, board_state)
             cv2.circle(sobel_img, top_left, 3, (255,0,0))
             cv2.circle(sobel_img, top_right, 3, (255,0,0))
             cv2.circle(sobel_img, bottom_left, 3, (255,0,0))
@@ -252,11 +261,11 @@ def find_everything(orig_img_path, sobel_img_path, board_state=None):
     horizontal_lines = sort_lines(horizontal_lines, 'horizontal')
 
     # add edges to sobel_img
-    '''for vert_line in vertical_lines:
+    for vert_line in vertical_lines:
         cv2.line(sobel_img,vert_line['p1'],vert_line['p2'],(0,0,255),2)
     for hori_line in horizontal_lines:
-        cv2.line(sobel_img,hori_line['p1'],hori_line['p2'],(0,0,255),2)'''
+        cv2.line(sobel_img,hori_line['p1'],hori_line['p2'],(0,0,255),2)
 
     cv2.imwrite('output.jpg', sobel_img)
-    return find_squares(horizontal_lines, vertical_lines, AVG_SQUARE_LENGTH, orig_img, sobel_img, board_state)
+    return get_squares(horizontal_lines, vertical_lines, orig_img, sobel_img, board_state)
 
