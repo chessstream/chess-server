@@ -1,4 +1,4 @@
-var chessWeb = require('chess-web');
+var chessWeb = require('./../lib/chess-web');
 
 // Get home page
 exports.index = function(req, res){
