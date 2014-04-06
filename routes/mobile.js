@@ -1,4 +1,4 @@
-var chessGames = require('./../lib/chess-games.js')
+var chessGames = require('./../lib/chess-games')
 
 // Get id of a game
 exports.create = function(req, res){
