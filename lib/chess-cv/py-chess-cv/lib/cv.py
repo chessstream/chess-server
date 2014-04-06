@@ -156,7 +156,7 @@ def find_squares(horizontal_lines, vertical_lines, square_length,orig_img, sobel
             right_line_ind = 1
             top_line_ind += 1
             bottom_line_ind += 1
-            if bottom_line_ind > 0:
+            if bottom_line_ind >= len(horizontal_lines):
                 if x == 7 and y == 7:
                     return squares
                 raise Exception('Did not find correct number of squares')
@@ -223,7 +223,7 @@ def valid_diff(coord1, coord2, square_length):
         1 : if the distance between two coords is too high
         -1 : if the distance between two coords is too low
     """
-    SQUARE_LENGTH_THERSHOLD = 25
+    SQUARE_LENGTH_THERSHOLD = 20
     diff = abs(coord1 - coord2)
     if (diff > square_length + SQUARE_LENGTH_THERSHOLD):
         return 1
@@ -238,7 +238,7 @@ def find_everything(orig_img_path, sobel_img_path, board_state=None):
     orig_img, sobel_img = crop_img(orig_img_in, sobel_img_in)
 
     height, width, depth = orig_img.shape
-    NUM_LINES = 9
+    NUM_LINES = 10
     AVG_SQUARE_LENGTH = ((height + width) / 2)/NUM_LINES
 
     horizontal_lines, vertical_lines = hough_lines(sobel_img)
