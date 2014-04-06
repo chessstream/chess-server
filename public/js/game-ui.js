@@ -12,6 +12,7 @@ $(function(){
    * @game A ChessGame object.
    */
   function updateBoard(game){
+    console.log(game);
     board.position(game.fen);
     // TODO update the stats
   }
