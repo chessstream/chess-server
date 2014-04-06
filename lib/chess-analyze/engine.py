@@ -28,7 +28,6 @@ def get_best_move(fen, move_time):
 			mate = True
 		elif "bestmove" in line:
 			bestmove = line
-			mate = False
 			break
 	
 	dictionary = {"bestMove": bestmove.split()[1], "score": analysis, "isMate": mate}
