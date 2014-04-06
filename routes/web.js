@@ -2,7 +2,7 @@ var chessGames = require('./../lib/chess-games');
 
 // Get home page
 exports.index = function(req, res){
-  res.render('index');
+  res.render('index', {latestId: chessGames.getLatestId()});
 };
 
 // Get game stream page
