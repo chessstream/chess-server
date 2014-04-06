@@ -1,6 +1,6 @@
-var chessMobile = require('./../lib/chess-mobile.js')
+var chessGames = require('./../lib/chess-games.js')
 
 // Get id of a game
-exports.getId = function(req, res){
-	res.end(chessMobile.getNextId().toString());
+exports.create = function(req, res){
+	res.end(chessGames.createGame().toString());
 }
