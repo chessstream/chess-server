@@ -13,7 +13,8 @@ exports.analyze = function(req, res){
     res.end('error');
   }
   console.log(req.files.img.path);
-  fs.rename(req.files.img.path, path.join(__dirname, 'uploads/' + fileCounter + '.jpeg'), function(err){
+  var root = path.dirname(require.main.filename);
+  fs.rename(path.join(root, req.files.img.path), path.join(root, 'uploads/' + fileCounter + '.jpeg'), function(err){
     if (err) throw err;
     console.log('renamed complete');
   });
