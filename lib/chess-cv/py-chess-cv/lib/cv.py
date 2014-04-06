@@ -170,6 +170,7 @@ def find_everything(orig_img_path, sobel_img_path, board_state=None):
     sobel_img_in = cv2.imread(sobel_img_path)
     orig_img, sobel_img = crop_img(orig_img_in, sobel_img_in)
     horizontal_lines, vertical_lines = hough_lines(sobel_img)
+    print(vertical_lines)
 
     cv2.imwrite('recentoutput.jpg',sobel_img)
     
