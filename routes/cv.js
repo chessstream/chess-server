@@ -14,7 +14,7 @@ exports.analyze = function(req, res){
   }
   console.log(req.files.img.path);
   var root = path.dirname(require.main.filename);
-  fs.rename(path.join('chess-server/', req.files.img.path), path.join('chess-server/', 'uploads/' + fileCounter + '.jpeg'), function(err){
+  fs.rename(path.join('/chess-server/', req.files.img.path), path.join('/chess-server/', 'uploads/' + fileCounter + '.jpeg'), function(err){
     if (err) throw err;
     console.log('renamed complete');
   });
