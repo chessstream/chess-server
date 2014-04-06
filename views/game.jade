@@ -13,22 +13,20 @@ block content
     br
     div.row
         div.small-12.columns
-            h1 Game #Blah 
-                small Started 1/1/1
+            h1 Game #{game.id} 
+            p Match created #{game.created.toLocaleDateString()}
     hr
     div.row
         div.small-12.medium-6.columns
             div#board
 
         div.small-12.medium-6.columns
-            p <b>White</b> to move
-            p White has a very small advantage
-            p White should do <b>e2e4</b>
+            div.analysis-text
     
 
 block scripts
   script.
-    var fen = '#{fen}'
+    var game = '#{game}'
   script(src='/bower_components/jquery/dist/jquery.min.js')
   script(src='/bower_components/chessboard.js/js/chessboard.min.js')
   script(src='/bower_components/socket.io-client/dist/socket.io.min.js')

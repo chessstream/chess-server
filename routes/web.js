@@ -9,7 +9,7 @@ exports.index = function(req, res){
 exports.game = function(req, res){
 	var id = parseInt(req.params.gameId);
 	if (chessGames.isValidId(id)){
-		res.render('game', {fen: chessGames.getFen(id)});
+		res.render('game', {game: chessGames.getGame(id)});
 	} else {
 		res.render('error', {error: 'This game is not currently active!'});
 	}
