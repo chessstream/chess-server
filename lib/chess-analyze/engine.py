@@ -24,15 +24,15 @@ def get_best_move(fen, move_time):
 	while True:
 		line = stockfish.stdout.readline().decode().rstrip()
 		if "score cp" in line:
-			analysis = line.split('multipv')[0]
+			analysis = line.split()[7]
 			mate = False
 		elif "score mate" in line:
-			analysis = line.split('multipv')[0]
+			analysis = line.split()[7]
 			mate = True
 		elif "bestmove" in line:
 			bestmove = line
 			mate = False
 			break
 	
-	return bestmove.split()[1], analysis, mate
+	print "{ bestmove: " + str(bestmove.split()[1]) + ", score: " + analysis + ", isMate: " + ("True" if mate else "False") + " }"
 
