@@ -8,7 +8,7 @@ def start_game(orig, sobel):
     # fen = info['fen']
     # output = {fen: fen, game_state: info}
     print info
-    return json.encode(info)
+    return info
 
 def process_input(orig, sobel, board_state):
     squares = cv.find_everything(orig, sobel, board_state)

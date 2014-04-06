@@ -155,7 +155,7 @@ def find_squares(horizontal_lines, vertical_lines, orig_img, sobel_img, board_st
             bottom_right = find_intersection(bottom_line, right_line, sobel_img)
 
             # crop squares
-            print hori_ind, vert_ind
+            # print hori_ind, vert_ind
 
             orig_square = orig_img[top_left[1]:bottom_right[1], top_left[0]:bottom_right[0]]
             sobel_square = sobel_img[top_left[1]:bottom_right[1], top_left[0]:bottom_right[0]]
