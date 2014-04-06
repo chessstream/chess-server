@@ -144,6 +144,7 @@ def get_squares(horizontal_lines, vertical_lines, orig_img, sobel_img, board_sta
             sobel_square = sobel_img[i*square_height:(i+1)*square_height, j*square_width:(j+1)*square_width]
             squares[i][j] = Square(sobel_square, orig_square, i, j, board_state)
     print(squares)
+    return squares
 
 
 def find_squares(horizontal_lines, vertical_lines, square_length,orig_img, sobel_img, board_state):
