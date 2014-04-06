@@ -1,5 +1,5 @@
 import numpy as np
-from game import Location
+import game
 from functools import reduce
 
 def board_string_to_location_array(board):
@@ -16,7 +16,7 @@ def _char_to_location(c, x, y):
 		color = 'W'
 	if c == '_':
 		c = None
-	return Location(x, y, c, color)
+	return game.Location(x, y, c, color)
 
 def compare_square_array_to_location_array(squares, locations):
 	disappeared, appeared = None, None

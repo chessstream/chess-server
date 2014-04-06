@@ -142,25 +142,30 @@ def find_squares(horizontal_lines, vertical_lines, orig_img, sobel_img, board_st
     vert_ind = 1
     squares = np.empty(shape=(8,8), dtype=object)
 
-    while hori_ind < len(horizontal_lines):
-        top_line = horizontal_lines[hori_ind - 1]
-        bottom_line = horizontal_lines[hori_ind]
-        left_line = vertical_lines[vert_ind - 1]
-        right_line = vertical_lines[vert_ind]
+    print len(horizontal_lines)
 
-        # corners of square
-        top_left = find_intersection(top_line, left_line, sobel_img)
-        bottom_right = find_intersection(bottom_line, right_line, sobel_img)
+    try:
+        while hori_ind < len(horizontal_lines):
+            top_line = horizontal_lines[hori_ind - 1]
+            bottom_line = horizontal_lines[hori_ind]
+            left_line = vertical_lines[vert_ind - 1]
+            right_line = vertical_lines[vert_ind]
 
-        # crop squares
-        orig_square = orig_img[top_left[1]:bottom_right[1], top_left[0]:bottom_right[0]]
-        sobel_square = sobel_img[top_left[1]:bottom_right[1], top_left[0]:bottom_right[0]]
-        squares[hori_ind - 1][vert_ind - 1] = Square(sobel_square, orig_img, hori_ind - 1, vert_ind - 1, board_state)
+            # corners of square
+            top_left = find_intersection(top_line, left_line, sobel_img)
+            bottom_right = find_intersection(bottom_line, right_line, sobel_img)
 
-        vert_ind += 1
-        if vert_ind == len(vertical_lines):
-            vert_ind = 1
-            hori_ind += 1
+            # crop squares
+            orig_square = orig_img[top_left[1]:bottom_right[1], top_left[0]:bottom_right[0]]
+            sobel_square = sobel_img[top_left[1]:bottom_right[1], top_left[0]:bottom_right[0]]
+            squares[hori_ind - 1][vert_ind - 1] = Square(sobel_square, orig_img, hori_ind - 1, vert_ind - 1, board_state)
+
+            vert_ind += 1
+            if vert_ind == len(vertical_lines):
+                vert_ind = 1
+                hori_ind += 1
+    except IndexError as e:
+        pass
 
     initialize_game(squares)
     return squares
@@ -171,8 +176,6 @@ def find_everything(orig_img_path, sobel_img_path, board_state=None):
     orig_img, sobel_img = crop_img(orig_img_in, sobel_img_in)
     horizontal_lines, vertical_lines = hough_lines(sobel_img)
     print(vertical_lines)
-
-    cv2.imwrite('recentoutput.jpg',sobel_img)
     
     # more lines than necessary, so merge
     if (len(vertical_lines) * len(horizontal_lines) > 49):
@@ -187,5 +190,6 @@ def find_everything(orig_img_path, sobel_img_path, board_state=None):
     for hori_line in horizontal_lines:
         cv2.line(sobel_img,hori_line['p1'],hori_line['p2'],(0,0,255),2)
 
+    cv2.imwrite('output.jpg', sobel_img)
     return find_squares(horizontal_lines, vertical_lines, orig_img, sobel_img, board_state)
 

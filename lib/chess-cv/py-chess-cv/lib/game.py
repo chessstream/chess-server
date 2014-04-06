@@ -16,6 +16,8 @@ class Board(object):
 
 		# determine camera orientation / board rotation
 		# rotation is the angle it must be rotated in order to restore order
+		print squares
+
 		top_avg = sum([sum(square.color_average) for square in top]) / 4
 		bottom_avg = sum([sum(square.color_average) for square in bottom]) / 4
 		left_avg = sum([sum(square.color_average) for square in left]) / 4

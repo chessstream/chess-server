@@ -2,3 +2,4 @@
 node_modules/*
 *.pyc
 public/bower_components/*
+*.jpg
