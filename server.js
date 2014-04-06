@@ -32,6 +32,7 @@ if ('development' == app.get('env')) {
 // Visited from web
 app.get('/', webRoutes.index);
 app.get('/create', mobileRoutes.create);
+app.get('/test/:id', webRoutes.test, webRoutes.game);
 app.post('/update', cvRoutes.analyze);
 app.get('/:gameId', webRoutes.game);
 
