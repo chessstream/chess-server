@@ -161,8 +161,6 @@ def find_squares(horizontal_lines, vertical_lines, square_length,orig_img, sobel
             sobel_square = sobel_img[top_left[1]:bottom_right[1], top_left[0]:bottom_right[0]]
             squares[hori_ind - 1][vert_ind - 1] = Square(sobel_square, orig_img, hori_ind - 1, vert_ind - 1, board_state)
 
- 
-    initialize_game(squares)
     return squares
 
 def valid_square(top_left, bottom_right):
