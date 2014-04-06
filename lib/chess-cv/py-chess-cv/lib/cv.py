@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from new_game import initialize_game
+from game import initialize_game
 from Square import Square
 
 def crop_img(orig_img, sobel_img):
@@ -137,7 +137,7 @@ def find_intersection(line1, line2, sobel_img):
     return (x,y)
 
 
-def find_squares(horizontal_lines, vertical_lines, orig_img, sobel_img):
+def find_squares(horizontal_lines, vertical_lines, orig_img, sobel_img, board_state):
     hori_ind = 1
     vert_ind = 1
     squares = np.empty(shape=(8,8), dtype=object)
@@ -170,6 +170,7 @@ def find_everything(orig_img_path, sobel_img_path, board_state=None):
     sobel_img_in = cv2.imread(sobel_img_path)
     orig_img, sobel_img = crop_img(orig_img_in, sobel_img_in)
     horizontal_lines, vertical_lines = hough_lines(sobel_img)
+    print(vertical_lines)
 
     cv2.imwrite('recentoutput.jpg',sobel_img)
     
