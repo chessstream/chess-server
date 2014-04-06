@@ -128,7 +128,7 @@ def initialize_game(squares):
 def update_game(squares, boardinfo):
 	locations = su.board_string_to_location_array(boardinfo['board'])
 	disappeared, appeared, taken = \
-			compare_square_array_to_location_array(squares, locations)
+			su.compare_square_array_to_location_array(squares, locations)
 	update_location_array(locations, squares, disappeared, appeared, taken)
 	board = location_array_to_board_string(locations)
 	to_move = 'W' if boardinfo['to_move'] == 'B' else 'B'
