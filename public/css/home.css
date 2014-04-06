@@ -1,3 +1,6 @@
+html {
+	background: black;
+}
 header {
 	background: url(/img/brooklyn-bridge2.jpg) no-repeat center center;
 	background-size: contain;
