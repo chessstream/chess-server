@@ -34,6 +34,7 @@ app.get('/', webRoutes.index);
 app.get('/create', mobileRoutes.create);
 app.get('/test/:gameId', webRoutes.test, webRoutes.game);
 app.post('/update', cvRoutes.analyze);
+app.post('/fen', mobileRoutes.fen);
 app.get('/:gameId', webRoutes.game);
 
 var server = http.createServer(app).listen(app.get('port'), function(){
