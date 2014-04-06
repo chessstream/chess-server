@@ -16,6 +16,6 @@ exports.game = function(req, res){
 }
 
 exports.test = function(req, res, next) {
-	chessWeb.updateGame(req.params.id, "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 1 1");
+	chessWeb.updateGame(req.params.gameId, "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 1 1");
 	next();
 }
