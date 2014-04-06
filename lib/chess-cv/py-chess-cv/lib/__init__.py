@@ -11,10 +11,7 @@ def start_game(orig, sobel):
     return info
 
 def process_input(orig, sobel, board_state):
-    try:
-        squares = cv.find_everything(orig, sobel, board_state)
-        info = game.update_game(squares, board_state)
-        print info
-        json.encode(info)
-    except:
-        pass
+    squares = cv.find_everything(orig, sobel, board_state)
+    info = game.update_game(squares, board_state)
+    print info
+    json.encode(info)
