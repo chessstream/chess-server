@@ -64,7 +64,7 @@ class Square():
 
 	@property
 	def b_w_diff(self):
-		self.w_w_diff = color_diff(self.color_average, self.boardinfo['b_w'])
+		self.b_w_diff = color_diff(self.color_average, self.boardinfo['b_w'])
 		return self.b_w_diff
 
 	@property
