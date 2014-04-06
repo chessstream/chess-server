@@ -151,11 +151,15 @@ def find_squares(horizontal_lines, vertical_lines, square_length,orig_img, sobel
     while bottom_line_ind < len(horizontal_lines):
         print(left_line_ind, right_line_ind, top_line_ind, bottom_line_ind)
         # when at right end of board
-        if right_line_ind > len(vertical_lines):
+        if right_line_ind >= len(vertical_lines):
             left_line_ind = 0
             right_line_ind = 1
             top_line_ind += 1
             bottom_line_ind += 1
+            if bottom_line_ind > 0:
+                if x == 7 and y == 7:
+                    return squares
+                raise Exception('Did not find correct number of squares')
 
         top_line = horizontal_lines[top_line_ind]
         bottom_line = horizontal_lines[bottom_line_ind]
@@ -193,7 +197,14 @@ def find_squares(horizontal_lines, vertical_lines, square_length,orig_img, sobel
             cv2.circle(sobel_img, top_right, 3, (255,0,0))
             cv2.circle(sobel_img, bottom_left, 3, (255,0,0))
             cv2.circle(sobel_img, bottom_right, 3, (255,0,0))
-            x, y = x + 1, y + 1
+            cv2.imwrite('output.jpg', sobel_img)
+            if x + 1 > 7:
+                y = y + 1
+                x = 0
+            else:
+                x = x + 1
+            if x == 7 and y == 7:
+                return squares
             left_line_ind += 1
             right_line_ind += 1
 
