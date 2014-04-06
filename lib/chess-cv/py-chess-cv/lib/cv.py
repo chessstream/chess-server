@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from new_game import initialize_game
+from game import initialize_game
 from Square import Square
 
 def crop_img(orig_img, sobel_img):
