@@ -4,6 +4,7 @@
 	"description": "Stream chess games",
 	"dependencies": {
 		"jquery": "2.1.0",
-		"chessboard.js": "0.3.2"
+		"chessboard.js": "0.3.2",
+		"socket.io-client": "0.9.16"
 	}
 }

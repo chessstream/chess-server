@@ -4,9 +4,10 @@ block stylesheets
   link(rel='stylesheet', href='/bower_components/chessboard.js/css/chessboard.min.css')
 
 block content
-  div#board(style="width:600px;")
+  div#board(style="width:50%;")
 
 block scripts
   script(src='/bower_components/jquery/dist/jquery.min.js')
   script(src='/bower_components/chessboard.js/js/chessboard.min.js')
+  script(src='/bower_components/socket.io-client/dist/socket.io.min.js')
   script(src='/js/game-ui.js')
