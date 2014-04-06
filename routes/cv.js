@@ -12,15 +12,8 @@ exports.analyze = function(req, res){
   if (!id || !img){
     res.end('error');
   }
-  fs.readFile(req.files.img.path, function (err, data) {
-    var counter = fileCounter++;
-    var newPath = path.join(__dirname, 'uploads/' + counter + '.jpeg');
-    fs.writeFile(newPath, data, function (err) {
-      res.end('error');
-    });
-  });
-  console.log(id);
-  console.log(req.files);
+  console.log(req.files.img.path);
+  fs.rename(req.files.img.path, path.join(__dirname, 'uploads/' + counter + '.jpeg'));
   var fen = chessCV.analyze(id, img);
   chessWeb.updateGame(id, fen);
   res.end('success');
